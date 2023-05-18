@@ -5,20 +5,65 @@
 
 <h:head>
 	<link rel="stylesheet" type="text/css" href="./styles/styleMenu.css" />
+	<style>
+.fixHeader {
+	display: inline-block;
+	margin-right: 215px;
+	margin-left: 75px;
+}
 
+.ui-datatable table {
+	width: 100% !important;
+	table-layout: auto !important;
+}
+
+.ui-datatable-tablewrapper {
+	display: flex;
+	align-items: center;
+}
+
+.custom-outputPanel {
+	white-space: normal;
+	word-wrap: break-word;
+	overflow-wrap: break-word;
+	max-width: 100%;
+}
+
+.ui-datatable .ui-column-filter {
+	display: block;
+	width: 90% !important;
+	margin-top: 5px;
+	max-width: 100%;
+}
+
+.fixbutton {
+	text-align: center !important;
+}
+
+.panelContent {
+	border: blue;
+}
+</style>
+	<script>
+	const btnCarga = document.querySelector('#btnCarga');
+	btnCarga.addEventListener('click', ()=>{
+		alert('JVS funciona!');
+	});
+</script>
 </h:head>
 <header>
+	<!-- 	Nav bar -->
 	<div class="card" style="height: 25px;">
-		<h:form id="form1">
+		<h:form>
 			<p:growl id="messages" />
 
 			<p:menubar>
 				<p:submenu label="Archivo" icon="pi pi-fw pi-file">
 					<p:submenu label="Nuevo" icon="pi pi-fw pi-plus">
-						<p:menuitem value="Marcador" icon="pi pi-fw pi-bookmark" />
+						<p:menuitem value="Marcador" icon="pi pi-fw pi-bookmark"/>
 						<p:menuitem value="Video" icon="pi pi-fw pi-video" />
 					</p:submenu>
-<!-- 					<p:menuitem id="datos" value="Datos" icon="pi pi-fw pi-database" action="#{mjzBean.cargarListado()}" update=""/> -->
+					<p:menuitem id="datos" value="Datos" icon="pi pi-fw pi-database" />
 					<p:menuitem value="Eliminar" icon="pi pi-fw pi-trash" />
 					<p:divider />
 					<p:menuitem value="Exportar" icon="pi pi-fw pi-external-link" />
@@ -63,8 +108,6 @@
 						<i class="pi pi-fw pi-search" />
 						<p:inputText placeholder="Buscar" />
 					</div>
-					<p:commandButton value="Generar Listado"
-						action="#{mjzBean.cargarListado()}" update="form2:form4:tbl"/>
 					<p:button value="Salir" icon="pi pi-fw pi-sign-out"
 						styleClass="ui-button-info" />
 				</f:facet>
@@ -74,11 +117,14 @@
 </header>
 <h:body>
 	<div style="height: 50px"></div>
-	<h:form id="form2">
+	<h:form id="form1">
+	<script type="text/javascript">
+		
+	</script>
 		<p:splitter>
 			<p:splitterPanel size="15">
 				<div class="card">
-					<h:form id="form3">
+					<h:form>
 						<p:growl>
 							<p:autoUpdate />
 						</p:growl>
@@ -86,10 +132,12 @@
 						<p:panelMenu style="width:300px">
 							<p:submenu label="Archivo" icon="pi pi-fw pi-file">
 								<p:submenu label="Nuevo" icon="pi pi-fw pi-plus">
-									<p:menuitem value="Marcador" icon="pi pi-fw pi-bookmark" />
+									<p:menuitem value="Marcador" icon="pi pi-fw pi-bookmark" 
+												action="#{renderedView.setContenidoSeleccionado()}"
+												update="form1:panCont"/>
 									<p:menuitem value="Video" icon="pi pi-fw pi-video" />
 								</p:submenu>
-<!-- 								<p:menuitem value="Datos" icon="pi pi-fw pi-database" action="#{mjzBean.cargarListado()}"/> -->
+								<p:menuitem value="Datos" icon="pi pi-fw pi-database" />
 								<p:menuitem value="Eliminar" icon="pi pi-fw pi-trash" />
 								<p:divider />
 								<p:menuitem value="Exportar" icon="pi pi-fw pi-external-link" />
@@ -126,91 +174,118 @@
 					</h:form>
 				</div>
 			</p:splitterPanel>
-			<style>
-				.panelContent{
-					border: blue;
-				}
-			</style>
-			<p:splitterPanel class="panelContent" size="85">
-				<h:form id="form4">
-
-					<div style="height: 10px"></div>
-					<style>
-.fixHeader {
-	display: inline-block;
-	margin-right: 215px;
-	margin-left: 75px;
+			<p:splitterPanel class="panelContent" size="85" id="panCont">
+				<p:outputPanel id="Marcador" rendered="#{renderedView.mostrarMarcador}">
+					<div class="card">
+						<style>
+/* reset on the showcase style*/
+body .ui-panelgrid .ui-panelgrid-cell {
+	background-color: transparent;
 }
 
-.ui-datatable table {
-	width: 100% !important;
-	table-layout: auto !Important;
-}
-
-.custom-outputPanel {
-	white-space: normal;
-	word-wrap: break-word;
-	overflow-wrap: break-word;
-	max-width: 100%;
-}
-
-.ui-datatable .ui-column-filter {
-	display: block;
-	width: 90% !important;
-	margin-top: 5px;
-	max-width: 100%;
-}
-
-.fixbutton {
-	text-align: center !important;
+/* example use of styles for your form */
+.my-heading-row {
+	background-color: var(--surface-c);
+	font-weight: bold;
 }
 </style>
-					<p:dataTable id="tbl" var="visitante" value="#{mjzBean.visitantes}"
-						resizableColumns="true" editable="true" paginator="true" rows="10"
-						paginatorPosition="bottom" emptyMessage="Sin información"
-						sortMode="single" style="width: 95%;">
 
-						<p:column headerText="Nombre" filterBy="#{visitante.nombre}"
-							sortBy="#{visitante.nombre}">
-							<f:facet name="header">
-								<h:outputText value="Nombre" />
-							</f:facet>
-							<h:outputText value="#{visitante.nombre}" />
-						</p:column>
-						<p:column headerText="Apellido" sortBy="#{visitante.apellido}"
-							filterBy="#{visitante.apellido}">
-							<f:facet name="header">
-								<h:outputText value="Apellido" />
-							</f:facet>
-							<h:outputText value="#{visitante.apellido}" />
-						</p:column>
+						<!--
+    Note: Rows and columns can have style, styleClass, and id.
+    Note: A column with a defined styleClass will ignore the styleClass specified in the columnClasses list.
+    Note: Note the use of ui-fluid to ensure that components are sized correctly and the use of ui-panelgrid-blank to remove borders.
+    -->
+						<p:panelGrid columns="4"
+							columnClasses="ui-grid-col-2,ui-grid-col-4,ui-grid-col-2,ui-grid-col-4"
+							layout="grid" styleClass="ui-panelgrid-blank ui-fluid"
+							style="border:0px none; background-color:transparent;">
 
-						<p:column sortBy="#{visitante.edad}" filterBy="#{visitante.edad}">
-							<f:facet name="header">
-								<h:outputText value="Edad" />
-							</f:facet>
-							<h:outputText value="#{visitante.edad}" />
-						</p:column>
+							<p:row styleClass="my-heading-row">
+            Biographic
+        </p:row>
 
-						<p:column sortBy="#{visitante.pais}" filterBy="#{visitante.pais}">
-							<f:facet name="header">
-								<h:outputText value="País" />
-							</f:facet>
-							<h:outputText value="#{visitante.pais}" />
-						</p:column>
+							<p:outputLabel for="@next" value="First Name" />
+							<p:inputText />
 
-						<p:column name="header" style="width:50px" exportable="false">
-							<f:facet name="header">
-								<h:outputText value="Editar" />
-							</f:facet>
-							<p:rowEditor />
-						</p:column>
+							<p:outputLabel for="@next" value="Last Name" />
+							<p:inputText />
 
-					</p:dataTable>
-					
-				</h:form>			
+							<p:outputLabel for="@next" value="Phone" />
+							<p:inputText />
+
+							<p:outputLabel for="@next" value="Email" />
+							<p:inputText />
+
+							<p:outputLabel for="@next" value="Address" />
+							<p:inputTextarea rows="3" />
+
+							<p:row id="my-row-id" styleClass="my-heading-row"
+								style="font-weight: bold">
+            Vehicle
+        </p:row>
+
+							<p:outputLabel for="@next" value="Manufacturer" />
+							<p:inputText />
+
+							<p:outputLabel for="@next" value="Series" />
+							<p:inputText />
+
+							<p:outputLabel for="@next" value="Color" />
+							<p:inputText />
+
+							<p:outputLabel for="idReg" value="Registration Number" />
+							<p:column style="background-color: lightcoral">
+								<p:inputText id="idReg" />
+							</p:column>
+
+							<p:row>
+								<p:column styleClass="ui-grid-col-12">
+									<p>
+										It should be noted that the use of @next is not possible for
+										the <u>Registration Number</u> outputLabel and the <u>for</u>
+										attribute should utilize an ID as shown in the example. The
+										other outputLabel and inputText fields do not require this as
+										they are the natural next element whereas <u>Registration
+											Number</u> is encapsulated in a column.
+									</p>
+								</p:column>
+							</p:row>
+
+							<p:row>
+								<p:column styleClass="ui-grid-col-12">
+									<p:commandButton value="Accept" styleClass="mr-2"
+										style="width: auto" />
+									<p:commandButton value="Reject" styleClass="mr-2"
+										style="width: auto" />
+									<p:commandButton value="Refer" style="width: auto" />
+								</p:column>
+							</p:row>
+						</p:panelGrid>
+					</div>
+				</p:outputPanel>
 			</p:splitterPanel>
 		</p:splitter>
+	</h:form>
+	<h:form>
+		<div class="card">
+			<p:dataTable var="product" value="#{dtBasicView.products}">
+				<p:column headerText="Code">
+					<h:outputText value="#{product.code}" />
+				</p:column>
+
+				<p:column headerText="Name">
+					<h:outputText value="#{product.name}" />
+				</p:column>
+
+				<p:column headerText="Category">
+					<h:outputText value="#{product.category}" />
+				</p:column>
+
+				<p:column headerText="Quantity">
+					<h:outputText value="#{product.quantity}" />
+				</p:column>
+			</p:dataTable>
+		</div>
 	</h:form>
 </h:body>
 </html>
