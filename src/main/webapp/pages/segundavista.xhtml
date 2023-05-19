@@ -15,10 +15,11 @@
 			<p:menubar>
 				<p:submenu label="Archivo" icon="pi pi-fw pi-file">
 					<p:submenu label="Nuevo" icon="pi pi-fw pi-plus">
-						<p:menuitem value="Marcador" icon="pi pi-fw pi-bookmark" />
-						<p:menuitem value="Video" icon="pi pi-fw pi-video" />
+						<p:menuitem value="Firmala gio" icon="pi pi-fw pi-bookmark" />
+						<p:menuitem value="Tabla de datos" icon="pi pi-fw pi-video" onclick="mostrarPanel()"/>
 					</p:submenu>
-<!-- 					<p:menuitem id="datos" value="Datos" icon="pi pi-fw pi-database" action="#{mjzBean.cargarListado()}" update=""/> -->
+					<p:menuitem id="datos" value="Datos" icon="pi pi-fw pi-database"
+						action="#{mjzBean.cargarListado()}" update="form2:form4:tbl" />
 					<p:menuitem value="Eliminar" icon="pi pi-fw pi-trash" />
 					<p:divider />
 					<p:menuitem value="Exportar" icon="pi pi-fw pi-external-link" />
@@ -63,8 +64,8 @@
 						<i class="pi pi-fw pi-search" />
 						<p:inputText placeholder="Buscar" />
 					</div>
-					<p:commandButton value="Generar Listado"
-						action="#{mjzBean.cargarListado()}" update="form2:form4:tbl"/>
+					<p:commandButton value="Actualizar tabla de datos"
+						action="#{mjzBean.cargarListado()}" update="form2:form4:panelTabla" />
 					<p:button value="Salir" icon="pi pi-fw pi-sign-out"
 						styleClass="ui-button-info" />
 				</f:facet>
@@ -89,7 +90,8 @@
 									<p:menuitem value="Marcador" icon="pi pi-fw pi-bookmark" />
 									<p:menuitem value="Video" icon="pi pi-fw pi-video" />
 								</p:submenu>
-<!-- 								<p:menuitem value="Datos" icon="pi pi-fw pi-database" action="#{mjzBean.cargarListado()}"/> -->
+								<p:menuitem value="Datos" icon="pi pi-fw pi-database"
+									action="#{mjzBean.cargarListado()}" update="form2:form4:tbl" />
 								<p:menuitem value="Eliminar" icon="pi pi-fw pi-trash" />
 								<p:divider />
 								<p:menuitem value="Exportar" icon="pi pi-fw pi-external-link" />
@@ -126,91 +128,59 @@
 					</h:form>
 				</div>
 			</p:splitterPanel>
-			<style>
-				.panelContent{
-					border: blue;
-				}
-			</style>
-			<p:splitterPanel class="panelContent" size="85">
+
+			<p:splitterPanel class="panelContent" size="85" >
 				<h:form id="form4">
 
 					<div style="height: 10px"></div>
-					<style>
-.fixHeader {
-	display: inline-block;
-	margin-right: 215px;
-	margin-left: 75px;
-}
+				
+				<p:outputPanel id="panelFirma" style="display:none">
+				<div class="card">
+    <h:form>
+        <p:growl>
+            <p:autoUpdate/>
+        </p:growl>
 
-.ui-datatable table {
-	width: 100% !important;
-	table-layout: auto !Important;
-}
+        <p:signature style="width:400px;height:200px" widgetVar="sig" value="#{signatureView.value}"
+                     required="true" guideline="true"/>
 
-.custom-outputPanel {
-	white-space: normal;
-	word-wrap: break-word;
-	overflow-wrap: break-word;
-	max-width: 100%;
-}
+        <div style="margin:20px 0">
+            <p:commandButton value="Submit" icon="pi pi-check" update="output"/>
+            <p:commandButton value="Clear" icon="pi pi-times" type="button" onclick="PF('sig').clear()" styleClass="ui-button-flat ml-2"/>
+        </div>
 
-.ui-datatable .ui-column-filter {
-	display: block;
-	width: 90% !important;
-	margin-top: 5px;
-	max-width: 100%;
-}
+        <p:outputPanel id="output">
+            <h:outputText rendered="#{not empty signatureView.value}" style="font-size:1.5rem" styleClass="block mb-2"
+                          value="Your Signature" />
+            <p:signature style="width:400px;height:200px;" value="#{signatureView.value}" readonly="true"
+                         rendered="#{not empty signatureView.value}" backgroundColor="#eaeaea" color="#03a9f4"/>
+        </p:outputPanel>
+    </h:form>
+</div>
 
-.fixbutton {
-	text-align: center !important;
-}
-</style>
-					<p:dataTable id="tbl" var="visitante" value="#{mjzBean.visitantes}"
-						resizableColumns="true" editable="true" paginator="true" rows="10"
-						paginatorPosition="bottom" emptyMessage="Sin información"
-						sortMode="single" style="width: 95%;">
-
-						<p:column headerText="Nombre" filterBy="#{visitante.nombre}"
-							sortBy="#{visitante.nombre}">
-							<f:facet name="header">
-								<h:outputText value="Nombre" />
-							</f:facet>
-							<h:outputText value="#{visitante.nombre}" />
-						</p:column>
-						<p:column headerText="Apellido" sortBy="#{visitante.apellido}"
-							filterBy="#{visitante.apellido}">
-							<f:facet name="header">
-								<h:outputText value="Apellido" />
-							</f:facet>
-							<h:outputText value="#{visitante.apellido}" />
-						</p:column>
-
-						<p:column sortBy="#{visitante.edad}" filterBy="#{visitante.edad}">
-							<f:facet name="header">
-								<h:outputText value="Edad" />
-							</f:facet>
-							<h:outputText value="#{visitante.edad}" />
-						</p:column>
-
-						<p:column sortBy="#{visitante.pais}" filterBy="#{visitante.pais}">
-							<f:facet name="header">
-								<h:outputText value="País" />
-							</f:facet>
-							<h:outputText value="#{visitante.pais}" />
-						</p:column>
-
-						<p:column name="header" style="width:50px" exportable="false">
-							<f:facet name="header">
-								<h:outputText value="Editar" />
-							</f:facet>
-							<p:rowEditor />
-						</p:column>
-
-					</p:dataTable>
-					
-				</h:form>			
+					</p:outputPanel>
+				</h:form>
 			</p:splitterPanel>
 		</p:splitter>
 	</h:form>
 </h:body>
+
+	<style>
+	
+	body .ui-panelmenu h3.ui-panelmenu-header.ui-state-active {
+    border-color: #ffe082 !important;
+    background: #191919 !important;
+    color: #b0bec5 !important;
+}
+	</style>
+	
+	<SCRIPT type="text/javascript">
+
+	function mostrarPanel2(){
+
+			var panel = document.getElementById('form2:form4:panelFirma');
+			panel.style.display ='block';
+		}
+
+	</SCRIPT>
 </html>

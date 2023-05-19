@@ -1,0 +1,218 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<link rel="stylesheet" type="text/css" href="../styles/styleMenu.css" />
+
+</h:head>
+<header> </header>
+<h:body>
+
+	<div class="card">
+		<p:panelGrid columns="1" layout="flex"
+			styleClass="showcase-text-align-center">
+			<p:divider align="center">
+				<div class="inline-flex align-items-center">
+					<h1>
+						<i class="pi pi-file" style="font-size: 2rem" /> Contratos Clientes
+					</h1>
+				</div>
+			</p:divider>
+			<p:dataTable id="tbl" var="visitante" value="#{mjzBean.visitantes}"
+				resizableColumns="true" editable="true" paginator="true" rows="5"
+				paginatorPosition="bottom" emptyMessage="Sin información"
+				sortMode="single" style="width: 95%;">
+
+				<p:column headerText="Nombre" filterBy="#{visitante.nombre}"
+					sortBy="#{visitante.nombre}">
+					<f:facet name="header">
+						<h:outputText value="Nombre" />
+					</f:facet>
+					<h:outputText value="#{visitante.nombre}" />
+				</p:column>
+				<p:column headerText="Apellido" sortBy="#{visitante.apellido}"
+					filterBy="#{visitante.apellido}">
+					<f:facet name="header">
+						<h:outputText value="Apellido" />
+					</f:facet>
+					<h:outputText value="#{visitante.apellido}" />
+				</p:column>
+
+				<p:column sortBy="#{visitante.edad}" filterBy="#{visitante.edad}">
+					<f:facet name="header">
+						<h:outputText value="Edad" />
+					</f:facet>
+					<h:outputText value="#{visitante.edad}" />
+				</p:column>
+
+				<p:column sortBy="#{visitante.pais}" filterBy="#{visitante.pais}">
+					<f:facet name="header">
+						<h:outputText value="País" />
+					</f:facet>
+					<h:outputText value="#{visitante.pais}" />
+				</p:column>
+
+				<p:column name="header" style="width:15px" exportable="false">
+					<f:facet name="header">
+					</f:facet>
+					<p:button icon="pi pi-file-pdf"
+						styleClass="rounded-button ui-button-secondary ui-button-flat" />
+				</p:column>
+
+				<p:column name="header" style="width:25px" exportable="false">
+					<f:facet name="header">
+					</f:facet>
+					<p:rowEditor styleClass="rounded-button ui-button-warning" />
+				</p:column>
+
+				<p:column name="header" style="width:15px" exportable="false">
+					<f:facet name="header">
+					</f:facet>
+					<p:button icon="pi pi-trash"
+						styleClass="rounded-button ui-button-danger ui-button-flat" />
+				</p:column>
+
+
+
+			</p:dataTable>
+			<p:commandButton
+				styleClass="rounded-button ui-button-success ui-button-flat"
+				value="" type="button" icon="pi pi-plus" onclick="PF('dlg3').show()" />
+		</p:panelGrid>
+	</div>
+
+
+	<p:dialog header="Nuevo Contrato" widgetVar="dlg3" height="500px" width="800px"
+		showEffect="fade" maximizable="true" style="text-align: center">
+	      <p:tabView>
+	            <p:tab title="Datos del Agente">
+				    <p:panelGrid columns="4" layout="flex">
+				        <p:outputLabel for="text1" value="Vendedor"/>
+				        <p:inputText id="text1"/>
+				
+				        <p:outputLabel for="text2" value="Text 2"/>
+				        <p:inputText id="text2"/>
+				
+				        <p:outputLabel for="date" value="Date"/>
+				        <p:datePicker id="date" showIcon="true" style="width:auto"/>
+				
+				        <p:outputLabel for="checkbox" value="Checkbox"/>
+				        <p:selectBooleanCheckbox id="checkbox" itemLabel="Checkbox"/>
+				
+				        <p:outputLabel for="selectOne" value="SelectOne (misaligned)"/>
+				        <p:selectOneMenu id="selectOne">
+				            <f:selectItem itemLabel="Select One" itemValue=""/>
+				            <f:selectItem itemLabel="Xbox One" itemValue="Xbox One"/>
+				            <f:selectItem itemLabel="PS4" itemValue="PS4"/>
+				            <f:selectItem itemLabel="Wii U" itemValue="Wii U"/>
+				        </p:selectOneMenu>
+				    </p:panelGrid>
+	            </p:tab>
+	            <p:tab title="Datos del Contratante">
+	                <p class="m-0">
+	                    Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab
+	                    illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut
+	                    odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Consectetur, adipisci velit, sed quia non numquam eius modi.
+	                </p>
+	            </p:tab>
+	            <p:tab title="Datos">
+	                <p class="m-0">At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores
+	                    et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga.
+	                    Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus.
+	                </p>
+	            </p:tab>
+	            <p:tab title="Esquema de Pagos">
+					<p:dataTable id="tblEsquemaPagos" var="visitante" value="#{mjzBean.visitantes}"
+						resizableColumns="true" editable="true" paginator="true" rows="5"
+						paginatorPosition="bottom" emptyMessage="Sin información"
+						sortMode="single" style="width: 95%;">
+		
+						<p:column headerText="Nombre" filterBy="#{visitante.nombre}"
+							sortBy="#{visitante.nombre}">
+							<f:facet name="header">
+								<h:outputText value="Nombre" />
+							</f:facet>
+							<h:outputText value="#{visitante.nombre}" />
+						</p:column>
+						<p:column headerText="Apellido" sortBy="#{visitante.apellido}"
+							filterBy="#{visitante.apellido}">
+							<f:facet name="header">
+								<h:outputText value="Apellido" />
+							</f:facet>
+							<h:outputText value="#{visitante.apellido}" />
+						</p:column>
+		
+						<p:column sortBy="#{visitante.edad}" filterBy="#{visitante.edad}">
+							<f:facet name="header">
+								<h:outputText value="Edad" />
+							</f:facet>
+							<h:outputText value="#{visitante.edad}" />
+						</p:column>
+		
+						<p:column sortBy="#{visitante.pais}" filterBy="#{visitante.pais}">
+							<f:facet name="header">
+								<h:outputText value="País" />
+							</f:facet>
+							<h:outputText value="#{visitante.pais}" />
+						</p:column>
+		
+						<p:column name="header" style="width:15px" exportable="false">
+							<f:facet name="header">
+							</f:facet>
+							<p:button icon="pi pi-file-pdf"
+								styleClass="rounded-button ui-button-secondary ui-button-flat" />
+						</p:column>
+		
+						<p:column name="header" style="width:25px" exportable="false">
+							<f:facet name="header">
+							</f:facet>
+							<p:rowEditor styleClass="rounded-button ui-button-warning" />
+						</p:column>
+		
+						<p:column name="header" style="width:15px" exportable="false">
+							<f:facet name="header">
+							</f:facet>
+							<p:button icon="pi pi-trash"
+								styleClass="rounded-button ui-button-danger ui-button-flat" />
+						</p:column>
+		
+		
+		
+					</p:dataTable>
+	            </p:tab>
+	            <p:tab title="Firmas">
+					<p:outputPanel id="panelFirmaCliente">
+						<ui:include src="../utilerias/firma.xhtml"></ui:include>
+					</p:outputPanel>
+
+	            </p:tab>
+	        </p:tabView>
+
+
+
+		<f:facet name="footer">
+			<p:commandButton type="button" value=""
+				styleClass="rounded-button ui-button-success ui-button-flat"
+				icon="pi pi-plus" />
+			<p:commandButton type="button" value=""
+				styleClass="rounded-button ui-button-danger ui-button-flat"
+				icon="pi pi-trash" onclick="PF('dlg3').hide()" />
+		</f:facet>
+	</p:dialog>
+
+
+
+</h:body>
+
+<style>
+body .ui-panelmenu h3.ui-panelmenu-header.ui-state-active {
+	border-color: #ffe082 !important;
+	background: #191919 !important;
+	color: #b0bec5 !important;
+	
+}
+</style>
+</html>

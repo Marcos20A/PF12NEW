@@ -1,0 +1,185 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<link rel="stylesheet" type="text/css" href="./styles/styleMenu.css" />
+
+</h:head>
+<header>
+	<div class="card" style="height: 25px;">
+		<h:form id="form1">
+			<p:growl id="messages" />
+
+			<p:menubar>
+				<p:submenu label="Archivo" icon="pi pi-fw pi-folder">
+					<p:submenu label="Reportes" icon="pi pi-folder-open">
+						<p:menuitem value="Reporte de Ventas" icon="pi pi-fw pi-chart-line"
+							onclick="mostrarReportesVentas()" />
+						<p:menuitem value="Clientes" icon="pi pi-fw pi-table"
+							onclick="mostrarClientes()" />
+					</p:submenu>
+					<p:menuitem value="Contratos" icon="pi pi-fw pi-file-edit" onclick="mostrarContratos()" />
+					<p:menuitem id="idRecibosPago" value="Recibo de Pago" icon="pi pi-fw pi-file"
+						action="#{mjzBean.cargarListado()}" update="form2:form4:tbl" />
+					<p:menuitem value="Eliminar" icon="pi pi-fw pi-trash" />
+					<p:divider />
+					<p:menuitem value="Exportar" icon="pi pi-fw pi-external-link" />
+				</p:submenu>
+
+				<p:submenu label="Editar" icon="pi pi-fw pi-pencil">
+					<p:menuitem value="Izquierda" icon="pi pi-fw pi-align-left" />
+					<p:menuitem value="Derecha" icon="pi pi-fw pi-align-right" />
+					<p:menuitem value="Centro" icon="pi pi-fw pi-align-center" />
+					<p:menuitem value="Justificar" icon="pi pi-fw pi-align-justify" />
+				</p:submenu>
+
+				<p:submenu label="Usuarios" icon="pi pi-fw pi-user">
+					<p:menuitem value="Nuevo" icon="pi pi-fw pi-user-plus" />
+					<p:menuitem value="Eliminar" icon="pi pi-fw pi-user-minus" />
+					<p:submenu label="Buscar" icon="pi pi-fw pi-users">
+						<p:submenu label="Filtro" icon="pi pi-fw pi-filter">
+							<p:menuitem value="Imprimir" icon="pi pi-fw pi-print" />
+						</p:submenu>
+						<p:menuitem value="Lista" icon="pi pi-fw pi-bars" />
+					</p:submenu>
+				</p:submenu>
+
+				<p:submenu label="Eventos" icon="pi pi-fw pi-calendar">
+					<p:submenu label="Editar" icon="pi pi-fw pi-pencil">
+						<p:menuitem value="Guardar" icon="pi pi-fw pi-calendar-plus" />
+						<p:menuitem value="Eliminar" icon="pi pi-fw pi-calendar-minus" />
+					</p:submenu>
+					<p:submenu label="Archivo" icon="pi pi-fw pi-calendar-times">
+						<p:menuitem value="Remover" icon="pi pi-fw pi-calendar-minus" />
+					</p:submenu>
+				</p:submenu>
+
+
+
+				<p:divider layout="vertical" />
+
+				<p:menuitem value="" icon="pi pi-fw pi-power-off" onclick="clean()" />
+
+				<f:facet name="options">
+					<div class="ui-input-icon-left mr-2">
+						<p:inputText placeholder="Buscar" class="pi pi-fw pi-search"/>
+					</div>
+					<p:button value="Salir" icon="pi pi-fw pi-sign-out"
+						styleClass="ui-button-info" />
+				</f:facet>
+			</p:menubar>
+		</h:form>
+	</div>
+</header>
+<h:body>
+	<div style="height: 50px"></div>
+	<h:form id="form2">
+		<p:splitter>
+			<p:splitterPanel size="15">
+				<div class="card">
+					<h:form id="form3">
+						<p:growl>
+							<p:autoUpdate />
+						</p:growl>
+
+						<p:panelMenu style="width:300px">
+							<p:submenu label="Archivo" icon="pi pi-fw pi-file">
+								<p:submenu label="Reportes" icon="pi pi-fw pi-folder-open">
+									<p:menuitem value="Reporte de ventas" icon="pi pi-fw pi-chart-line" onclick="mostrarReportesVentas()"/>
+									<p:menuitem value="Clientes" icon="pi pi-fw pi-table" onclick="mostrarClientes()"/>
+								</p:submenu>
+								<p:menuitem value="Datos" icon="pi pi-fw pi-database"
+									action="#{mjzBean.cargarListado()}" update="form2:form4:tbl" />
+								<p:menuitem value="Eliminar" icon="pi pi-fw pi-trash" />
+								<p:divider />
+								<p:menuitem value="Exportar" icon="pi pi-fw pi-external-link" />
+							</p:submenu>
+
+							<p:submenu label="Editar" icon="pi pi-fw pi-pencil">
+								<p:menuitem value="Izquierda" icon="pi pi-fw pi-align-left" />
+								<p:menuitem value="Derecha" icon="pi pi-fw pi-align-right" />
+								<p:menuitem value="Centro" icon="pi pi-fw pi-align-center" />
+								<p:menuitem value="Jsutificar" icon="pi pi-fw pi-align-justify" />
+							</p:submenu>
+
+							<p:submenu label="Usuarios" icon="pi pi-fw pi-user">
+								<p:menuitem value="Nuevo" icon="pi pi-fw pi-user-plus" />
+								<p:menuitem value="Eliminar" icon="pi pi-fw pi-user-minus" />
+								<p:submenu label="Buscar" icon="pi pi-fw pi-users">
+									<p:submenu label="Filtro" icon="pi pi-fw pi-filter">
+										<p:menuitem value="Print" icon="pi pi-fw pi-print" />
+									</p:submenu>
+									<p:menuitem value="Lista" icon="pi pi-fw pi-bars" />
+								</p:submenu>
+							</p:submenu>
+
+							<p:submenu label="Eventos" icon="pi pi-fw pi-calendar">
+								<p:submenu label="Edit" icon="pi pi-fw pi-pencil">
+									<p:menuitem value="Guardar" icon="pi pi-fw pi-calendar-plus" />
+									<p:menuitem value="Eliminar" icon="pi pi-fw pi-calendar-minus" />
+								</p:submenu>
+								<p:submenu label="Archivo" icon="pi pi-fw pi-calendar-times">
+									<p:menuitem value="Remover" icon="pi pi-fw pi-calendar-minus" />
+								</p:submenu>
+							</p:submenu>
+						</p:panelMenu>
+					</h:form>
+				</div>
+			</p:splitterPanel>
+
+			<p:splitterPanel class="panelContent" size="85">
+				<h:form id="form4">
+
+					<div style="height: 10px"></div>
+
+					<p:outputPanel id="panelCliente" style="display:none">
+						<ui:include src="archivos/clientes.xhtml"></ui:include>
+					</p:outputPanel>
+					<p:outputPanel id="panelFirma" style="display:none">
+						<ui:include src="utilerias/firma.xhtml"></ui:include>
+					</p:outputPanel>
+					<p:outputPanel id="panelContrato" style="display:none">
+						<ui:include src="archivos/contratos.xhtml"></ui:include>
+					</p:outputPanel>
+				</h:form>
+			</p:splitterPanel>
+		</p:splitter>
+	</h:form>
+</h:body>
+
+<style>
+body .ui-panelmenu h3.ui-panelmenu-header.ui-state-active {
+	border-color: #ffe082 !important;
+	background: #191919 !important;
+	color: #b0bec5 !important;
+}
+</style>
+
+<SCRIPT type="text/javascript">
+	var tabla = document.getElementById('form2:form4:panelCliente');
+	var reportes = document.getElementById('form2:form4:panelFirma');
+	var contratos = document.getElementById('form2:form4:panelContrato');
+	function mostrarClientes() {
+		tabla.style.display = 'block';
+		reportes.style.display = 'none';
+	}
+
+	function  mostrarReportesVentas(){
+		reportes.style.display = 'block';
+		tabla.style.display = 'none';
+	}
+	function mostrarContratos(){
+		contratos.style.display = 'block';
+		reportes.style.display = 'none';
+		tabla.style.display = 'none';
+	}
+	function clean(){
+		reportes.style.display = 'none';
+		tabla.style.display = 'none';
+		contratos.style.display = 'none';
+	}
+</SCRIPT>
+</html>

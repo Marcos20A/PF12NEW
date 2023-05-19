@@ -22,6 +22,11 @@ public class MyJavaZoneBean implements Serializable{
 
 	private ArrayList<Visitantes> visitantes;
 	 
+	public MyJavaZoneBean() {
+		cargarListado();
+		
+	}   
+	
 	 public void cargarListado(){
 	  visitantes=new ArrayList(); 
 	 

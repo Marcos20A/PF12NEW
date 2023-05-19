@@ -92,3 +92,8 @@ body .ui-datatable thead th .ui-sortable-column-icon.ui-icon-triangle-1-s
 .fixbutton {
 	text-align: center !important;
 }
+
+.panelContent {
+	border: blue;
+}
+

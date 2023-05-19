@@ -45,6 +45,6 @@
   <mime-type>application/font-woff2</mime-type>
  </mime-mapping>
  <welcome-file-list>
-  <welcome-file>pages/menu.xhtml</welcome-file>
+  <welcome-file>pages/index.xhtml</welcome-file>
  </welcome-file-list>
 </web-app>
