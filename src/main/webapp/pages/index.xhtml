@@ -24,7 +24,7 @@
 					<p:menuitem value="Contratos" icon="pi pi-fw pi-file-edit" onclick="mostrarContratos()" />
 					<p:menuitem id="idRecibosPago" value="Recibo de Pago" icon="pi pi-fw pi-file"
 						action="#{mjzBean.cargarListado()}" update="form2:form4:tbl" />
-					<p:menuitem value="Eliminar" icon="pi pi-fw pi-trash" />
+					<p:menuitem value="Galeria" icon="pi pi-fw pi-images" onclick="mostrarGaleria"/>
 					<p:divider />
 					<p:menuitem value="Exportar" icon="pi pi-fw pi-external-link" />
 				</p:submenu>
@@ -144,6 +144,9 @@
 					<p:outputPanel id="panelContrato" style="display:none">
 						<ui:include src="archivos/contratos.xhtml"></ui:include>
 					</p:outputPanel>
+					<p:outputPanel id="panelGaleria" style="display:none">
+						<ui:include src="archivos/galeria.xhtml"></ui:include>
+					</p:outputPanel>
 				</h:form>
 			</p:splitterPanel>
 		</p:splitter>
@@ -162,6 +165,7 @@ body .ui-panelmenu h3.ui-panelmenu-header.ui-state-active {
 	var tabla = document.getElementById('form2:form4:panelCliente');
 	var reportes = document.getElementById('form2:form4:panelFirma');
 	var contratos = document.getElementById('form2:form4:panelContrato');
+	var galeria = document.getElementById('form2:form4:panelGaleria');
 	function mostrarClientes() {
 		tabla.style.display = 'block';
 		reportes.style.display = 'none';
@@ -175,6 +179,12 @@ body .ui-panelmenu h3.ui-panelmenu-header.ui-state-active {
 		contratos.style.display = 'block';
 		reportes.style.display = 'none';
 		tabla.style.display = 'none';
+	}
+	function mostrarGaleria(){
+		galeria.style.display = 'block';
+		reportes.style.display = 'none';
+		tabla.style.display = 'none';
+		contratos.style.display='none';
 	}
 	function clean(){
 		reportes.style.display = 'none';

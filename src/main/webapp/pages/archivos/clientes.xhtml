@@ -24,7 +24,7 @@
 			<p:dataTable id="tbl" var="visitante" value="#{mjzBean.visitantes}"
 				resizableColumns="true" editable="true" paginator="true" rows="5"
 				paginatorPosition="bottom" emptyMessage="Sin información"
-				sortMode="single" style="width: 95%;">
+				sortMode="single" styleClass="fixDatatable">
 
 				<p:column headerText="Nombre" filterBy="#{visitante.nombre}"
 					sortBy="#{visitante.nombre}">
@@ -128,7 +128,7 @@
 					<p:dataTable id="tblEsquemaPagos" var="visitante" value="#{mjzBean.visitantes}"
 						resizableColumns="true" editable="true" paginator="true" rows="5"
 						paginatorPosition="bottom" emptyMessage="Sin información"
-						sortMode="single" style="width: 95%;">
+						sortMode="single" styleClass="fixDatatable">
 		
 						<p:column headerText="Nombre" filterBy="#{visitante.nombre}"
 							sortBy="#{visitante.nombre}">
@@ -213,6 +213,24 @@ body .ui-panelmenu h3.ui-panelmenu-header.ui-state-active {
 	background: #191919 !important;
 	color: #b0bec5 !important;
 	
+}
+
+.fixDatatable{
+
+	width:95% !important;
+	text-align: center !important;
+}
+
+body .ui-datatable thead th {
+    background: #252525 !important;
+    color: #dedede !important;
+    padding: .571rem .857rem !important;
+    border: 1px solid #191919 !important;
+    border-width: 1px 1px 1px 1px !important;
+    text-align: center !important;
+    box-sizing: content-box !important;
+    transition: background-color .2s,color .2s,border-color .2s,box-shadow .2s,opacity .2s !important;
+    font-weight: bold !important;
 }
 </style>
 </html>
