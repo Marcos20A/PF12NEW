@@ -16,15 +16,18 @@
 			<p:menubar>
 				<p:submenu label="Archivo" icon="pi pi-fw pi-folder">
 					<p:submenu label="Reportes" icon="pi pi-folder-open">
-						<p:menuitem value="Reporte de Ventas" icon="pi pi-fw pi-chart-line"
-							onclick="mostrarReportesVentas()" />
+						<p:menuitem value="Reporte de Ventas"
+							icon="pi pi-fw pi-chart-line" onclick="mostrarPanel('reportes')" />
 						<p:menuitem value="Clientes" icon="pi pi-fw pi-table"
-							onclick="mostrarClientes()" />
+							onclick="mostrarPanel('clientes')" />
 					</p:submenu>
-					<p:menuitem value="Contratos" icon="pi pi-fw pi-file-edit" onclick="mostrarContratos()" />
-					<p:menuitem id="idRecibosPago" value="Recibo de Pago" icon="pi pi-fw pi-file"
-						action="#{mjzBean.cargarListado()}" update="form2:form4:tbl" />
-					<p:menuitem value="Galeria" icon="pi pi-fw pi-images" onclick="mostrarGaleria"/>
+					<p:menuitem value="Contratos" icon="pi pi-fw pi-file-edit"
+						onclick="mostrarPanel('contratos')" />
+					<p:menuitem id="idRecibosPago" value="Recibo de Pago"
+						icon="pi pi-fw pi-file" action="#{mjzBean.cargarListado()}"
+						update="form2:form4:tbl" />
+					<p:menuitem value="Galeria" icon="pi pi-fw pi-images"
+						onclick="mostrarPanel('galerias')" />
 					<p:divider />
 					<p:menuitem value="Exportar" icon="pi pi-fw pi-external-link" />
 				</p:submenu>
@@ -65,7 +68,7 @@
 
 				<f:facet name="options">
 					<div class="ui-input-icon-left mr-2">
-						<p:inputText placeholder="Buscar" class="pi pi-fw pi-search"/>
+						<p:inputText placeholder="Buscar" class="pi pi-fw pi-search" />
 					</div>
 					<p:button value="Salir" icon="pi pi-fw pi-sign-out"
 						styleClass="ui-button-info" />
@@ -88,8 +91,11 @@
 						<p:panelMenu style="width:300px">
 							<p:submenu label="Archivo" icon="pi pi-fw pi-file">
 								<p:submenu label="Reportes" icon="pi pi-fw pi-folder-open">
-									<p:menuitem value="Reporte de ventas" icon="pi pi-fw pi-chart-line" onclick="mostrarReportesVentas()"/>
-									<p:menuitem value="Clientes" icon="pi pi-fw pi-table" onclick="mostrarClientes()"/>
+									<p:menuitem value="Reporte de ventas"
+										icon="pi pi-fw pi-chart-line"
+										onclick="mostrarPanel('reportes')" />
+									<p:menuitem value="Clientes" icon="pi pi-fw pi-table"
+										onclick="mostrarPanel('clientes')" />
 								</p:submenu>
 								<p:menuitem value="Datos" icon="pi pi-fw pi-database"
 									action="#{mjzBean.cargarListado()}" update="form2:form4:tbl" />
@@ -162,34 +168,44 @@ body .ui-panelmenu h3.ui-panelmenu-header.ui-state-active {
 </style>
 
 <SCRIPT type="text/javascript">
-	var tabla = document.getElementById('form2:form4:panelCliente');
+	var clientes = document.getElementById('form2:form4:panelCliente');
 	var reportes = document.getElementById('form2:form4:panelFirma');
 	var contratos = document.getElementById('form2:form4:panelContrato');
 	var galeria = document.getElementById('form2:form4:panelGaleria');
-	function mostrarClientes() {
-		tabla.style.display = 'block';
-		reportes.style.display = 'none';
-	}
-
-	function  mostrarReportesVentas(){
-		reportes.style.display = 'block';
-		tabla.style.display = 'none';
-	}
-	function mostrarContratos(){
-		contratos.style.display = 'block';
-		reportes.style.display = 'none';
-		tabla.style.display = 'none';
-	}
-	function mostrarGaleria(){
-		galeria.style.display = 'block';
-		reportes.style.display = 'none';
-		tabla.style.display = 'none';
-		contratos.style.display='none';
+	function mostrarPanel(panel){
+		switch(panel){
+		case 'clientes':{
+			clientes.style.display = 'block';
+			reportes.style.display = 'none';
+			contratos.style.display = 'none';
+			galeria.style.display = 'none';
+			}break;
+		case 'reportes':{
+			reportes.style.display = 'block';
+			clientes.style.display = 'none';
+			contratos.style.display = 'none';
+			galeria.style.display = 'none';
+			}break;
+		case 'contratos':{
+			contratos.style.display = 'block';
+			reportes.style.display = 'none';
+			clientes.style.display = 'none';
+			galeria.style.display = 'none';
+			}break;
+		case 'galerias':{
+			galeria.style.display = 'block';
+			reportes.style.display = 'none';
+			clientes.style.display = 'none';
+			contratos.style.display='none';
+			}
+		default:break;
+		}
 	}
 	function clean(){
 		reportes.style.display = 'none';
-		tabla.style.display = 'none';
+		clientes.style.display = 'none';
 		contratos.style.display = 'none';
+		galeria.style.display = 'none';
 	}
 </SCRIPT>
 </html>
